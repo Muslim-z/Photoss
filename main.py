@@ -2,11 +2,17 @@ import os
 from pprint import pprint
 from pathlib import Path
 from urllib.parse import urlparse
+import telegram
 import requests
+
+
+
 
 Path("images").mkdir(parents=True, exist_ok=True)
 apukai = "xvROm1yTc5QJ3SXjDHakwC6u5X9WwnGmys1z1RXp"
 
+bot = telegram.Bot(token='5221093879:AAH00K1gA8ZrjkZyx45WFhVn9Mc8OlphCNI')
+print(bot.get_me())
 
 def extention_print(url):
     url_parse = urlparse(url)
@@ -57,7 +63,7 @@ def EPIC_photo():
         image_saver(epic_image_url, filename)
 
 
-EPIC_photo()
+#EPIC_photo()
 #day_photo()
 #fetch_spacex_last_launch()
 if __name__ == '__main__':
