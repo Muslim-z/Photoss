@@ -12,7 +12,7 @@ Path("images").mkdir(parents=True, exist_ok=True)
 apukai = "xvROm1yTc5QJ3SXjDHakwC6u5X9WwnGmys1z1RXp"
 
 bot = telegram.Bot(token='5221093879:AAH00K1gA8ZrjkZyx45WFhVn9Mc8OlphCNI')
-print(bot.get_me())
+bot.send_message(text='helo', chat_id='@rererereter')
 
 def extention_print(url):
     url_parse = urlparse(url)
