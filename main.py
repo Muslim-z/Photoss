@@ -1,18 +1,18 @@
 import os
-from pprint import pprint
+import time
+
 from pathlib import Path
 from urllib.parse import urlparse
+
 import telegram
 import requests
 
+from dotenv import dotenv_values
 
 
+NASA_API_KEY = dotenv_values('.env')['NASA_API_KEY']
+TELEGRAM_TOKEN = dotenv_values('.env')['TELEGRAM_TOKEN']
 
-Path("images").mkdir(parents=True, exist_ok=True)
-apukai = "xvROm1yTc5QJ3SXjDHakwC6u5X9WwnGmys1z1RXp"
-
-bot = telegram.Bot(token='5221093879:AAH00K1gA8ZrjkZyx45WFhVn9Mc8OlphCNI')
-bot.send_message(text='helo', chat_id='@rererereter')
 
 def extention_print(url):
     url_parse = urlparse(url)
@@ -29,7 +29,7 @@ def image_saver(url, image_path):
 
 
 def fetch_spacex_last_launch():
-    launches_url = "https://api.spacexdata.com/v3/launches"
+    launches_url = 'https://api.spacexdata.com/v3/launches'
     response = requests.get(launches_url)
     response.raise_for_status()
     image_list = response.json()[66]['links']['flickr_images']
@@ -40,7 +40,8 @@ def fetch_spacex_last_launch():
 
 
 def day_photo():
-    apod_url = "https://api.nasa.gov/planetary/apod?count=20&api_key=xvROm1yTc5QJ3SXjDHakwC6u5X9WwnGmys1z1RXp"
+    apod_url = f'https://api.nasa.gov/planetary/apod?'\
+        f'count=20&api_key={NASA_API_KEY}'
     response = requests.get(apod_url)
     response.raise_for_status()
     for number, image in enumerate(response.json()):
@@ -49,22 +50,31 @@ def day_photo():
 
 
 def EPIC_photo():
-    epic_url = "https://api.nasa.gov/EPIC/api/natural?api_key=xvROm1yTc5QJ3SXjDHakwC6u5X9WwnGmys1z1RXp"
+    epic_url = f'https://api.nasa.gov/EPIC/api/natural?api_key={NASA_API_KEY}'
     response = requests.get(epic_url)
     response.raise_for_status()
-
-
 
     for number, image in enumerate(response.json()):
         date = image['date'].replace("-", "/")
         epic_image_num = image['image']
-        epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/{date.split( )[0]}/png/{epic_image_num}.png?api_key=xvROm1yTc5QJ3SXjDHakwC6u5X9WwnGmys1z1RXp'
+        epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/'\
+            f'{date.split()[0]}/png/{epic_image_num}.png?'\
+            f'api_key={NASA_API_KEY}'
         filename = f'images/epic_photo{number}.png'
         image_saver(epic_image_url, filename)
 
 
-#EPIC_photo()
-#day_photo()
-#fetch_spacex_last_launch()
+# EPIC_photo()
+# day_photo()
+# fetch_spacex_last_launch()
 if __name__ == '__main__':
-    smthng = 1
+
+    Path('images').mkdir(parents=True, exist_ok=True)
+    bot = telegram.Bot(token=TELEGRAM_TOKEN)
+    sap = os.walk('images')
+    for root, dirs, files in os.walk('images'):
+        for filename in files:
+            image_path = f'{root}/{filename}'
+            bot.send_document(chat_id='@rererereter',
+                              document=open(image_path, 'rb'))
+            time.sleep(86400)
