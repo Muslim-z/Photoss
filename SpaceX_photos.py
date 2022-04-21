@@ -3,7 +3,7 @@ import os
 from urllib.parse import urlparse
 
 
-def image_saver(url, image_path):
+def save_image(url, image_path):
     response = requests.get(url)
     response.raise_for_status()
 
@@ -25,7 +25,7 @@ def fetch_spacex_last_launch():
 
     for number, image in enumerate(image_list):
         filename = f'images/last_launch_photo{number}{extention_print(image)}'
-        image_saver(image, filename)
+        save_image(image, filename)
 
 if __name__ == "__main__":
 

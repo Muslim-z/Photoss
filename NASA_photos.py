@@ -12,7 +12,7 @@ def extention_print(url):
     return split_text[1]
 
 
-def image_saver(url, image_path):
+def save_image(url, image_path):
     response = requests.get(url)
     response.raise_for_status()
 
@@ -20,7 +20,7 @@ def image_saver(url, image_path):
         file.write(response.content)
 
 
-def EPIC_photo():
+def fetch_EPIC_photo():
     epic_url = f'https://api.nasa.gov/EPIC/api/natural?api_key={NASA_API_KEY}'
     response = requests.get(epic_url)
     response.raise_for_status()
@@ -32,19 +32,19 @@ def EPIC_photo():
             f'{date.split()[0]}/png/{epic_image_num}.png?'\
             f'api_key={NASA_API_KEY}'
         filename = f'images/epic_photo{number}.png'
-        image_saver(epic_image_url, filename)
+        save_image(epic_image_url, filename)
 
 
-def day_photo():
+def fetch_day_photo():
     apod_url = f'https://api.nasa.gov/planetary/apod?'\
         f'count=20&api_key={NASA_API_KEY}'
     response = requests.get(apod_url)
     response.raise_for_status()
     for number, image in enumerate(response.json()):
         filename = f'images/day_photo{number}{extention_print(image["url"])}'
-        image_saver(image['url'], filename)
+        save_image(image['url'], filename)
 
 if __name__ == "__main__":
 
-    day_photo()
-    EPIC_photo()
+    fetch_day_photo()
+    fetch_EPIC_photo()
