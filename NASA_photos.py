@@ -11,12 +11,14 @@ def extention_print(url):
     split_text = os.path.splitext(url_parse.path)
     return split_text[1]
 
+
 def image_saver(url, image_path):
     response = requests.get(url)
     response.raise_for_status()
 
     with open(image_path, 'wb') as file:
         file.write(response.content)
+
 
 def EPIC_photo():
     epic_url = f'https://api.nasa.gov/EPIC/api/natural?api_key={NASA_API_KEY}'
