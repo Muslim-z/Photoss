@@ -13,4 +13,4 @@ for root, dirs, files in os.walk('images'):
         image_path = f'{root}/{filename}'
         bot.send_document(chat_id=TELEGRAM_CHANNEL_ID,
                           document=open(image_path, 'rb'))
-        time.sleep(DELAY)
+        time.sleep(int(DELAY))
