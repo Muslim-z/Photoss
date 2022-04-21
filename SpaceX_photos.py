@@ -27,4 +27,6 @@ def fetch_spacex_last_launch():
         filename = f'images/last_launch_photo{number}{extention_print(image)}'
         image_saver(image, filename)
 
-fetch_spacex_last_launch()
+if __name__ == "__main__":
+
+    fetch_spacex_last_launch()

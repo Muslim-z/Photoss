@@ -44,5 +44,7 @@ def day_photo():
         filename = f'images/day_photo{number}{extention_print(image["url"])}'
         image_saver(image['url'], filename)
 
-day_photo()
-EPIC_photo()
+if __name__ == "__main__":
+
+    day_photo()
+    EPIC_photo()
