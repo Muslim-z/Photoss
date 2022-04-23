@@ -1,5 +1,6 @@
-import requests
 import os
+import requests
+
 from urllib.parse import urlparse
 
 
@@ -21,9 +22,9 @@ def fetch_spacex_last_launch():
     launches_url = 'https://api.spacexdata.com/v3/launches'
     response = requests.get(launches_url)
     response.raise_for_status()
-    image_list = response.json()[66]['links']['flickr_images']
+    image_links = response.json()[66]['links']['flickr_images']
 
-    for number, image in enumerate(image_list):
+    for number, image in enumerate(image_links):
         filename = f'images/last_launch_photo{number}{extention_print(image)}'
         save_image(image, filename)
 
