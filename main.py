@@ -1,7 +1,10 @@
-import telegram
 import os
-from dotenv import dotenv_values
 import time
+
+import telegram
+
+from dotenv import dotenv_values
+
 
 TELEGRAM_TOKEN = dotenv_values('.env')['TELEGRAM_BOT_TOKEN']
 TELEGRAM_CHANNEL_ID = dotenv_values('.env')['TELEGRAM_CHANNEL_ID']
