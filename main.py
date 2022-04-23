@@ -16,6 +16,10 @@ if __name__ == "__main__":
     for root, dirs, files in os.walk('images'):
         for filename in files:
             image_path = f'{root}/{filename}'
-            bot.send_document(chat_id=TELEGRAM_CHANNEL_ID,
-                              document=open(image_path, 'rb'))
+            with open(image_path, 'rb') as img:
+                image = img.read()
+            bot.send_photo(
+                chat_id=TELEGRAM_CHANNEL_ID,
+                photo=image
+            )
             time.sleep(int(DELAY))
