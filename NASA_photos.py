@@ -1,9 +1,9 @@
+import os
 import requests
-import  os
-from dotenv import dotenv_values
+
 from urllib.parse import urlparse
 
-NASA_API_KEY = dotenv_values('.env')['NASA_API_KEY']
+from dotenv import dotenv_values
 
 
 def extention_print(url):
@@ -12,39 +12,42 @@ def extention_print(url):
     return split_text[1]
 
 
-def save_image(url, image_path):
-    response = requests.get(url)
+def save_image(url, image_path,params=''):
+    response = requests.get(url,params=params)
     response.raise_for_status()
 
     with open(image_path, 'wb') as file:
         file.write(response.content)
 
 
-def fetch_EPIC_photo():
-    epic_url = f'https://api.nasa.gov/EPIC/api/natural?api_key={NASA_API_KEY}'
-    response = requests.get(epic_url)
+def fetch_epic_photo(nasa_api_key):
+    epic_url = f'https://api.nasa.gov/EPIC/api/natural'
+    payload = {'api_key': nasa_api_key}
+    response = requests.get(epic_url,params=payload)
     response.raise_for_status()
 
     for number, image in enumerate(response.json()):
         date = image['date'].replace("-", "/")
         epic_image_num = image['image']
         epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/'\
-            f'{date.split()[0]}/png/{epic_image_num}.png?'\
-            f'api_key={NASA_API_KEY}'
+            f'{date.split()[0]}/png/{epic_image_num}.png'
         filename = f'images/epic_photo{number}.png'
-        save_image(epic_image_url, filename)
+        save_image(epic_image_url, filename,params=payload)
 
 
-def fetch_day_photo():
-    apod_url = f'https://api.nasa.gov/planetary/apod?'\
-        f'count=20&api_key={NASA_API_KEY}'
-    response = requests.get(apod_url)
+def fetch_day_photo(nasa_api_key):
+    apod_url = f'https://api.nasa.gov/planetary/apod'
+    payload = {
+        'api_key': nasa_api_key,
+        'count': 20
+    }
+    response = requests.get(apod_url, params=payload)
     response.raise_for_status()
     for number, image in enumerate(response.json()):
         filename = f'images/day_photo{number}{extention_print(image["url"])}'
         save_image(image['url'], filename)
 
 if __name__ == "__main__":
-
-    fetch_day_photo()
-    fetch_EPIC_photo()
+    nasa_api_key = dotenv_values('.env')['NASA_API_KEY']
+    fetch_day_photo(nasa_api_key)
+    fetch_epic_photo(nasa_api_key)
