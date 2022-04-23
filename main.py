@@ -13,7 +13,6 @@ DELAY = dotenv_values('.env')['DELAY']
 if __name__ == "__main__":
 
     bot = telegram.Bot(token=TELEGRAM_TOKEN)
-    sap = os.walk('images')
     for root, dirs, files in os.walk('images'):
         for filename in files:
             image_path = f'{root}/{filename}'
