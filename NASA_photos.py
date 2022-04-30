@@ -8,8 +8,8 @@ from dotenv import dotenv_values
 
 def extention_print(url):
     url_parse = urlparse(url)
-    split_text = os.path.splitext(url_parse.path)
-    return split_text[1]
+    root, extention = os.path.splitext(url_parse.path)
+    return extention
 
 
 def save_image(url, image_path,params=''):
