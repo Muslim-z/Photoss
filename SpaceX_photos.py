@@ -12,7 +12,7 @@ def save_image(url, image_path):
         file.write(response.content)
 
 
-def extention_print(url):
+def find_extention(url):
     url_parse = urlparse(url)
     split_text = os.path.splitext(url_parse.path)
     return split_text[1]
@@ -25,7 +25,7 @@ def fetch_spacex_last_launch():
     image_links = response.json()[66]['links']['flickr_images']
 
     for number, image in enumerate(image_links):
-        filename = f'images/last_launch_photo{number}{extention_print(image)}'
+        filename = f'images/last_launch_photo{number}{find_extention(image)}'
         save_image(image, filename)
 
 if __name__ == "__main__":

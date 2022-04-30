@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 from dotenv import dotenv_values
 
 
-def extention_print(url):
+def find_extention(url):
     url_parse = urlparse(url)
     root, extention = os.path.splitext(url_parse.path)
     return extention
@@ -44,7 +44,7 @@ def fetch_day_photo(nasa_api_key):
     response = requests.get(apod_url, params=payload)
     response.raise_for_status()
     for number, image in enumerate(response.json()):
-        filename = f'images/day_photo{number}{extention_print(image["url"])}'
+        filename = f'images/day_photo{number}{find_extention(image["url"])}'
         save_image(image['url'], filename)
 
 if __name__ == "__main__":
