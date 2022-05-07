@@ -15,9 +15,8 @@ if __name__ == "__main__":
         for filename in files:
             image_path = f'{root}/{filename}'
             with open(image_path, 'rb') as img:
-                image = img.read()
-            bot.send_photo(
-                chat_id=telegram_channel_id,
-                photo=image
-            )
+                bot.send_photo(
+                    chat_id=telegram_channel_id,
+                    photo=img.read()
+                )
             time.sleep(int(delay))
