@@ -23,11 +23,11 @@ pip install -r requirements.txt
 ### Как запустить
 Чтобы скачать фото от NASA нужно найти путь к файлу `nasa_photos.py` и написать в консоль:
 ```
-python NASA_photos.py
+python nasa_photos.py
 ```
 Чтобы скачать фото от SpaceX нужно найти путь к файлу `spacex_photos.py` и написать в консоль:
 ```
-python Spacex_photos.py
+python spacex_photos.py
 ```
 Чтобы начать публикацию фото нужно найти путь к файлу `main.py` и написать в консоль:
 ```
