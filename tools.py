@@ -2,6 +2,8 @@ import os
 
 import requests
 
+from urllib.parse import urlparse
+
 def save_image(url, image_path,params=''):
     response = requests.get(url,params=params)
     response.raise_for_status()
