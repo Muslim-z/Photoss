@@ -5,7 +5,7 @@ import telegram
 
 from dotenv import dotenv_values
 
-IMAGES = os.walk('images')
+IMAGES_DIRECTORY = './images'
 
 if __name__ == "__main__":
 
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     delay = dotenv_values('.env')['DELAY']
     bot = telegram.Bot(token=telegram_token)
 
-    for root, dirs, files in IMAGES:
+    for root, dirs, files in os.walk(IMAGES_DIRECTORY):
         for filename in files:
             image_path = f'{root}/{filename}'
             with open(image_path, 'rb') as img:

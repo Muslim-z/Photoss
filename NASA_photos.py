@@ -1,15 +1,14 @@
 import os
 import requests
-from datetime import datetime
 
-from tools import save_image
-from tools import find_extention
+from datetime import datetime
+from tools import save_image, find_extention
 from urllib.parse import urlparse
 
 from dotenv import dotenv_values
 
 FILE_DIR = 'images/'
-COUNT = 20
+PHOTOS_COUNT = 20
 
 
 def fetch_epic_photo(nasa_api_key):
@@ -33,7 +32,7 @@ def fetch_day_photo(nasa_api_key):
     apod_url = f'https://api.nasa.gov/planetary/apod'
     payload = {
         'api_key': nasa_api_key,
-        'count': COUNT
+        'count': PHOTOS_COUNT
     }
     response = requests.get(apod_url, params=payload)
     response.raise_for_status()
