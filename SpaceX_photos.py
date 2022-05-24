@@ -20,4 +20,5 @@ def fetch_spacex_last_launch():
 
 
 if __name__ == "__main__":
+    os.makedirs(FILE_DIR, exist_ok=True)
     fetch_spacex_last_launch()

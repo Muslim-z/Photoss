@@ -42,6 +42,7 @@ def fetch_day_photo(nasa_api_key):
 
 
 if __name__ == "__main__":
+    os.makedirs(FILE_DIR, exist_ok=True)
     nasa_api_key = dotenv_values('.env')['NASA_API_KEY']
     fetch_day_photo(nasa_api_key)
     fetch_epic_photo(nasa_api_key)
